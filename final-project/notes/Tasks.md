@@ -3,7 +3,7 @@
     # EXPERIMENTS
     - You will perform (at least) TWO experiments:
     - [ ] (Experiment 1) Original results
-      - [ ] **Attempt to replicate the original paper’s results, following whatever instructions are provided and whatever details are in the paper itself**
+      - [ ] *Deron* **Attempt to replicate the original paper’s results, following whatever instructions are provided and whatever details are in the paper itself**
         - [ ] Pick a small dataset, 
     - [ ] *Josh* (Experiment 2) New results
       - [x] **Run the approach on some other as-yet unused dataset to see how it performs on a hitherto unused dataset**
