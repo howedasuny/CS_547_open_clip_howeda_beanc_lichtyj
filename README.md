@@ -1,5 +1,19 @@
 # TULIP: Towards Unified Language-Image Pre-training
 
+## CS 547 Project Fork (SUNY Polytechnic)
+
+- Team: Josh Lichty, Cameron Bean, Deron Howe
+- This repository is a course-project fork used for replication and new-dataset evaluation.
+- Main project work and experiments are in `final-project/experiments.ipynb`.
+- Classification demo: `final-project/example.ipynb`.
+- Dataset/checkpoint acquisition: the notebook downloads missing datasets and checkpoints automatically.
+- Run experiments: open and run all cells in `final-project/experiments.ipynb`.
+- Environment setup:
+  - `pip install -r requirements.txt`
+  - `pip install -r requirements-training.txt`
+  - `pip install -r requirements-test.txt`
+  - `pip install -e .`
+
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)  [![arXiv](https://img.shields.io/badge/arXiv-2503.15485-red)](https://arxiv.org/abs/2503.15485)
 
 Check out our [project page](https://tulip-berkeley.github.io) for more information/the latest news and links!
@@ -22,8 +36,7 @@ This repository is a fork of [OpenCLIP](https://github.com/mlfoundations/open_cl
 To install OpenCLIP + TULIP, use the following commands:
 
 ```sh
-pip install timm --upgrade
-pip install transformers
+pip install -r requirements.txt
 pip install -e .
 ```
 
@@ -50,13 +63,20 @@ You can use TULIP for inference with the following code snippet:
 import torch
 from PIL import Image
 import open_clip
+from transformers import AutoTokenizer
 
-model, _, preprocess = open_clip.create_model_and_transforms('TULIP-so400m-14-384', pretrained='<path to model checkpoint>')
+model, _, preprocess = open_clip.create_model_and_transforms('TULIP-so400m-14-384', pretrained='./tulip-so400m-14-384.ckpt')
 model.eval()
 
 image = preprocess(Image.open("sample.jpg")).unsqueeze(0)
-tokenizer = open_clip.get_tokenizer('TULIP-so400m-14-384')
-text = tokenizer(["a cat", "a dog", "a bird"])
+tokenizer = AutoTokenizer.from_pretrained("ZinengTang/tulip-tokenizer")
+text = tokenizer(
+    ["a cat", "a dog", "a bird"],
+    return_tensors="pt",
+    max_length=64,
+    padding="max_length",
+    truncation=True,
+).input_ids
 
 with torch.no_grad(), torch.autocast("cuda"):
     image_features = model.encode_image(image)
