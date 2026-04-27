@@ -1,0 +1,12 @@
+{
+  "dataset": "cifar100",
+  "embed_dim": 1152,
+  "num_classes": 100,
+  "epochs": 20,
+  "batch_size": 512,
+  "lr": 0.003,
+  "weight_decay": 0.0001,
+  "test_loss": 0.007520788531750441,
+  "test_top1": 0.9999999709129334,
+  "test_top5": 0.9999999709129334
+}
